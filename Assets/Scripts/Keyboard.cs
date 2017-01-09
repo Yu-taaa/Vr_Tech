@@ -31,7 +31,7 @@ public class Keyboard : MonoBehaviour
         }
     }
 
-    void AddTextMesh(GameObject parent)
+    static void AddTextMesh(GameObject parent)
     {
         var obj = new GameObject("Text Mesh");
         obj.transform.SetParent(parent.transform, false);
