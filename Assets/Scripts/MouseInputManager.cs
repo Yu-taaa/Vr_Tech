@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class MouseInputManager : MonoBehaviour
@@ -21,12 +19,12 @@ public class MouseInputManager : MonoBehaviour
             return;
         }
         
-        var keyTop = raycastHit.collider.GetComponent<KeyTop>();
-        if (keyTop == null)
+        var button = raycastHit.collider.GetComponent<IButton>();
+        if (button == null)
         {
             return;
         }
 
-        inputField.text += keyTop.Text;
+        button.OnPressed();
     }
 }
