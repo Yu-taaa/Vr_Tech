@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class MouseInputManager : MonoBehaviour
 {
-    [SerializeField] InputField inputField;
-
     void Update()
     {
         if (!Input.GetMouseButtonDown(0))
