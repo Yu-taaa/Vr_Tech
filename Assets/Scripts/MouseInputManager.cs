@@ -1,12 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class MouseInputManager : MonoBehaviour
 {
-    [SerializeField] InputField inputField;
-
     void Update()
     {
         if (!Input.GetMouseButtonDown(0))
@@ -21,12 +16,12 @@ public class MouseInputManager : MonoBehaviour
             return;
         }
         
-        var keyTop = raycastHit.collider.GetComponent<KeyTop>();
-        if (keyTop == null)
+        var button = raycastHit.collider.GetComponent<IButton>();
+        if (button == null)
         {
             return;
         }
 
-        inputField.text += keyTop.Text;
+        button.OnPressed();
     }
 }
