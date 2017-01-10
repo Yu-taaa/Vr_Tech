@@ -12,6 +12,7 @@ public class InsertButton : MonoBehaviour, IButton
         this.inputField = inputField;
     }
 
+	//ボタンが押されたら1文字inputFieldの中にいれる
     public void OnPressed()
     {
         inputField.text += character;
