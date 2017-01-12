@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Linq;
 using UnityEngine.UI;
 
 public class Keyboard : MonoBehaviour
@@ -8,56 +7,56 @@ public class Keyboard : MonoBehaviour
 	//つまりここでのinputFieldはゲームオブジェクトInputField
     [SerializeField] InputField inputField;
 
-    void Start()
-    {
-        // ABCDE button 5回繰り返す
-        foreach (var x in Enumerable.Range(0, 5))
-        {
-			// ('A' + x)でABCDの順で変数を定義できる
-            var character = (char) ('A' + x);
-			//立方体や球体といった基本的な 3D モデルのスクリプトからの作成
-            var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			//20行目までで生成したobjの名前、位置を設定
-            obj.name = character + " Button";
-            obj.transform.SetParent(transform);
-            obj.transform.position = Vector3.right * (x * 2 - 4.0f);
+	//シーンやプレハブ、Assetとしてデータを編集・保存できるようになる 
+	//インスペクター上のGUIで編集できるようになるので楽 
+	//シリアライズできない=Unityエディタ上では扱いづらいと考えてOK 
+	//publicとのちがいはprivateで他のコードからのアクセス不可
+
+
+
+    void update()
+	{
+//		if (MouseInputManager.obj.tag == "key") {
+//			print ("OK");
+//			char word = MouseInputManager.obj.GetComponent<InsertButton> ().key;
+//
+//			//objにInsertButtonというコンポーネントを加え、InsertButtonクラスのInitializeを呼び出す。
+//			//8行目のinputFieldが引数
+//			//inputfieldをunityエディタでアタッチしてるので現在の入力している文字部分をもってこれる
+//			MouseInputManager.obj.AddComponent<InsertButton> ().Initialize (word, inputField);
+//			//呼び出し
+////            AddTextMesh(obj);
+//		} else if (MouseInputManager.obj.tag == "change") {
+//			//objにBackSpaceButtonというコンポーネントを加え、BackSpaceButtonクラスのInitializeを呼び出す
+//			//8行目のinputFieldが引数
+//			//AddComponent<BackSpaceButton>()でBackSpaceButtonスクリプトを参照
+//			MouseInputManager.obj.AddComponent<BackSpaceButton> ().Initialize (inputField);
+//			//呼び出し
+////           AddTextMesh(obj);
+//		} else
+//			return;
+    }
+
+	public void Hoge(GameObject obj){
+		if (obj.tag == "key") {
+			print ("OK");
+			char word = obj.GetComponent<InsertButton> ().key;
 
 			//objにInsertButtonというコンポーネントを加え、InsertButtonクラスのInitializeを呼び出す。
 			//8行目のinputFieldが引数
-            obj.AddComponent<InsertButton>().Initialize(character, inputField);
+			//inputfieldをunityエディタでアタッチしてるので現在の入力している文字部分をもってこれる
+			obj.GetComponent<InsertButton> ().Initialize (word, inputField);
 			//呼び出し
-            AddTextMesh(obj);
-        }
-
-        // BackSpace button
-        {
-			//立方体や球体といった基本的な 3D モデルのスクリプトからの作成
-            var obj = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			//30行目までで生成したobjの名前、位置を設定
-            obj.name = "BackSpace Button";
-            obj.transform.SetParent(transform);
-            obj.transform.position = new Vector3(4, 2, 0);
+			//            AddTextMesh(obj);
+		} else if (obj.tag == "change") {
 			//objにBackSpaceButtonというコンポーネントを加え、BackSpaceButtonクラスのInitializeを呼び出す
 			//8行目のinputFieldが引数
 			//AddComponent<BackSpaceButton>()でBackSpaceButtonスクリプトを参照
-            obj.AddComponent<BackSpaceButton>().Initialize(inputField);
+			obj.GetComponent<BackSpaceButton> ().Initialize (inputField);
 			//呼び出し
-           AddTextMesh(obj);
-        }
-    }
+			//           AddTextMesh(obj);
+		} else
+			return;
+	}
 
-	//生成したobjのテキスト情報を設定
-    static void AddTextMesh(GameObject parent)
-    {
-        var obj = new GameObject("Text Mesh");
-        obj.transform.SetParent(parent.transform, false);
-        obj.transform.localScale = Vector3.one * 0.1f;
-
-        var textMesh = obj.AddComponent<TextMesh>();
-        textMesh.text = parent.name;
-        textMesh.color = Color.black;
-        textMesh.alignment = TextAlignment.Center;
-        textMesh.anchor = TextAnchor.MiddleCenter;
-        textMesh.fontSize = 30;
-    }
 }
